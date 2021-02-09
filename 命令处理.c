@@ -12,6 +12,7 @@ int main()
 	        printf("%s %s %s",str,buf,sda);
 	        return 0;
 	        */
+	system("mode con cp select=65001");
 	char shuru[100];//输入的值输入的例子 tag -add <title> "neirong"
 	char first[100];
 	char second[100];
@@ -28,7 +29,7 @@ int main()
 	memset ( change1, 0, sizeof ( change1 ) );//清除缓存（没清之前有错误）
 	memset ( change2, 0, sizeof ( change2 ) );
 
-	printf("%s",forth);
+
 
 	if(strcmp("ls",first)==0&&strlen(shuru)==2)
 	{
@@ -38,23 +39,54 @@ int main()
 	{
 		printf("second");
 	}
+	else if (strcmp("ls",first)==0&& second[0] == '<' && strcmp("grep",third)==0 && forth[0] == '"' )
+	{
+		sscanf ( second, "<%[^>]", change1 );//去除<>
+		printf ( "%s\n", change1 );//检测
+		sscanf ( forth, "\"%[^\"]", change2 );//去除""
+		printf ( "%s", change2 );
+
+	}
 	else if(strcmp("ls",first)==0&&second[0]=='<')
 	{
 		sscanf ( second, "<%[^>]", change1 );//去除<>
 		printf ( "%s", change1 );//检测
 	}
-	else if(strcmp("ls",first)==0&&second[0]=='<'&&strcmp("grep",third)==0&&forth[0]=='"')
-	{
 
-		sscanf ( second, "<%[^>]", change1 );//去除<>
-		printf ( "%s", change1 );//检测
-		sscanf ( forth, "\"%[^\"]", change2 );//去除""
-		printf ( "%s", change2 );
-	}
 	else if(strcmp("cd",first)==0)
 	{
 		printf("%s",first);
 	}
+	else if(strcmp("cd",first)==0&&second[0]=='<')
+	{
+		sscanf ( second, "<%[^>]", change1 );//去除<>
+		printf ( "%s", change1 );//检测
+	}
+	else if(strcmp("mv",first)==0&&second[0]=='<'&&third[0]=='<')
+	{
+		sscanf ( second, "<%[^>]", change1 );//去除<>
+		printf ( "%s", change1 );//检测
+		sscanf ( third, "<%[^>]", change2 );//去除<>
+		printf ( "%s", change2 );//检测
+	}
+	else if(strcmp("mv",first)==0&&strcmp("-r",second)==0&&third[0]=='<'&&forth[0]=='<')
+	{
+		sscanf ( third, "<%[^>]", change1 );//去除<>
+		printf ( "%s", change1 );//检测
+		sscanf ( forth, "<%[^>]", change2 );//去除<>
+		printf ( "%s", change2 );//检测
+	}
+	else if(strcmp("rm",first)==0&&second[0]=='<')
+	{
+		sscanf ( second, "<%[^>]", change1 );//去除<>
+		printf ( "%s", change1 );//检测
+	}
+	else if(strcmp("rm",first)==0&&strcmp("-r",second)==0&&third[0]=='<')
+	{
+		sscanf ( third, "<%[^>]", change1 );//去除<>
+		printf ( "%s", change1 );//检测
+	}
+
 
 	if (strcmp("tag",first)==0&& second[0] == '-' && third[0] == '<' && forth[0] == '"' )
 	{
@@ -76,6 +108,17 @@ int main()
 		sscanf ( third, "\"%[^\"]", change2 );
 		printf ( "%s", change2 );
 	}
+	if ( strcmp("md",first)==0&& second[0] == '<' )
+	{
+		sscanf ( second, "<%[^>]", change1 );
+		printf ( "%s\n", change1 );
+	}
+	if ( strcmp("sort",first)==0&& second[0] == '<' )
+	{
+		sscanf ( second, "<%[^>]", change1 );
+		printf ( "%s\n", change1 );
+	}
+
 
 	/*sscanf(shuru,"%[]",kong);
 	sscanf(shuru,"%*[^<]<%[^>]",buf);
