@@ -5,7 +5,7 @@
 #include<dirent.h>
 #include<time.h> 
 
-struct node{           
+typedef struct node{           
 	int label;         //标签：1：代表文件；0：代表文件夹 
 	char name[260];    //文件（夹）名字 
 	char path[260];    //文件（夹）路径 
@@ -13,10 +13,10 @@ struct node{
 	char *tag_2[10];
 	char *tag_3[10];
 	int time;          //最近修改时间 
-	node* P_left;      //指向左孩子的指针 
-	node* P_right;     //指向右孩子的指针 
-	node* P_parents;   //指向父结点的指针 
-};
+	struct node* P_left;      //指向左孩子的指针 
+	struct node* P_right;     //指向右孩子的指针 
+	struct node* P_parents;   //指向父结点的指针 
+}node;
 
 node* POINTER;     //全局变量，实时指向用户打开的当前目录 
 node* HEAD;        //树的头节点 
@@ -91,9 +91,11 @@ void move_file()    //移动文件/文件夹
 			p1->P_right = p;
 			change_path(len_oldpath,newpath,p->P_left);  //改p1左子树的路径 
 		}
-		else {               //被移动的是文件 ，尾插法 
+		else {               //被移动的是文件 ,插在文件夹之后，原有文件之前 
 			p=p2->P_left;
 			while(p->P_right!=NULL&&p->label==0) p=p->P_right;
+			p1->P_right=p->P_right;
+			if(p->P_right) p->P_right->P_parents=p1;
 			p->P_right=p1;
 			p1->P_parents=p;
 		}
@@ -126,7 +128,8 @@ void rename_file(void){  //重命名文件/文件夹
 	int len_oldpath=strlen(POINTER->path);
 	int len_oldname=strlen(POINTER->name);
 	char* path_pre;
-	for(int i=0;i<(len_oldpath-len_oldname);i++){
+	int i;
+	for( i=0;i<(len_oldpath-len_oldname);i++){
 		path_pre[i]=POINTER->path[i];
 	} 
 	char* newpath=strcat(path_pre,newname);
@@ -154,14 +157,14 @@ node* search(char path[],node* p){  //查找，找到给定路径文件/文件夹所在的结点,并
 	} 
 	else{ //相对路径 
 	    p=POINTER; //从当前目录入手 
-	    int i=2;
+	    int i=2,j;
 		int len=strlen(path);
 	    while(i<len&&path[i]=='/'){   //有几个就回退几个目录 
 	    	p=p->P_parents;
 			i=i+3;
 		}
 		char* path_post=(char*)malloc(sizeof(char)*(len-i+2));
-		for(int j=0;j<len-i+2;j++){
+		for(j=0;j<len-i+2;j++){
 			path_post[j]==path[j+i-2];   //除去../后的路径 
 		}
 		char* path_all=strcat(p->path,path_post);   //完整路径，即求出要找的文件（夹）的绝对路径 
@@ -178,8 +181,9 @@ void change_path(int len_oldpath,char* newpath,node* p){  //先序遍历改路径
 	if(p!=NULL) {
 		int len_path=strlen(p->path);      //原路径长度 
 	    int len=len_path - len_oldpath;    
-	    char* path_post=(char*)malloc(sizeof(char)*len);  
-		for(int i=0;i<len;i++){
+	    char* path_post=(char*)malloc(sizeof(char)*len); 
+		int i;
+		for(i=0;i<len;i++){
 		    path_post[i]=p->path[i+len_oldpath];  //路径不变的部分；oldpath：路径要变为newname的部分 
 	    }
 	    char* path_new=strcat(newpath,path_post);
