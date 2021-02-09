@@ -13,9 +13,9 @@ typedef struct node{
 	char *tag_2[10];
 	char *tag_3[10];
 	int time;          //最近修改时间 
-	node* P_left;      //指向左孩子的指针 
-	node* P_right;     //指向右孩子的指针 
-	node* P_parents;   //指向父结点的指针 
+	struct node* P_left;      //指向左孩子的指针 
+	struct node* P_right;     //指向右孩子的指针 
+	struct node* P_parents;   //指向父结点的指针 
 } node ;
 
 node* POINTER;     //全局变量，实时指向用户打开的当前目录 
