@@ -8,11 +8,11 @@
 #include <string.h>
 
 int top = -1;
-/*********************¶ÑÕ»*********************************/
+/*********************å †æ ˆ*********************************/
 void push(struct node **a,struct node * elem){
     a[++top]=elem;
 }
-//µ¯Õ»º¯Êı
+//å¼¹æ ˆå‡½æ•°
 void pop( ){
     if (top==-1) {
         return ;
@@ -20,17 +20,17 @@ void pop( ){
     top--;
 }
 
-//ÄÃµ½Õ»¶¥ÔªËØ
+//æ‹¿åˆ°æ ˆé¡¶å…ƒç´ 
 struct node *getTop(struct node **a){
     return a[top];
 }
 /**********************************************************/ 
 
-/******************************º¯ÊıµÄÄÚ²¿º¯Êı*************************************/ 
+/******************************å‡½æ•°çš„å†…éƒ¨å‡½æ•°*************************************/ 
 int sign = 0;
 /**
-* µİ¹éÉ¾³ıÄ¿Â¼(É¾³ı¸ÃÄ¿Â¼ÒÔ¼°¸ÃÄ¿Â¼°üº¬µÄÎÄ¼şºÍÄ¿Â¼)
-* @dir:ÒªÉ¾³ıµÄÄ¿Â¼¾ø¶ÔÂ·¾¶
+* é€’å½’åˆ é™¤ç›®å½•(åˆ é™¤è¯¥ç›®å½•ä»¥åŠè¯¥ç›®å½•åŒ…å«çš„æ–‡ä»¶å’Œç›®å½•)
+* @dir:è¦åˆ é™¤çš„ç›®å½•ç»å¯¹è·¯å¾„
 */
 int remove_mulu(const char *dir)
 {
@@ -40,46 +40,46 @@ int remove_mulu(const char *dir)
 	DIR *dirp;
 	struct dirent *dp;
 	struct stat dir_stat;
-	// ²ÎÊı´«µİ½øÀ´µÄÄ¿Â¼²»´æÔÚ£¬Ö±½Ó·µ»Ø
+	// å‚æ•°ä¼ é€’è¿›æ¥çš„ç›®å½•ä¸å­˜åœ¨ï¼Œç›´æ¥è¿”å›
 	if ( 0 != access(dir, F_OK) ) 
 	{
 		return 0;
 	}
-	// »ñÈ¡Ä¿Â¼ÊôĞÔÊ§°Ü£¬·µ»Ø´íÎó
+	// è·å–ç›®å½•å±æ€§å¤±è´¥ï¼Œè¿”å›é”™è¯¯
 	if ( 0 > stat(dir, &dir_stat) ) 
 	{
-		printf("»ñÈ¡Ä¿Â¼ÊôĞÔÊ§°Ü£¡\n");
+		printf("è·å–ç›®å½•å±æ€§å¤±è´¥ï¼\n");
 		return -1;
 	}
 	if ( S_ISREG(dir_stat.st_mode) ) 
-	{	// ÆÕÍ¨ÎÄ¼şÖ±½ÓÉ¾³ı
+	{	// æ™®é€šæ–‡ä»¶ç›´æ¥åˆ é™¤
 		remove(dir);
 	} 
 	else if ( S_ISDIR(dir_stat.st_mode) ) 
-	{	// Ä¿Â¼ÎÄ¼ş£¬µİ¹éÉ¾³ıÄ¿Â¼ÖĞÄÚÈİ
+	{	// ç›®å½•æ–‡ä»¶ï¼Œé€’å½’åˆ é™¤ç›®å½•ä¸­å†…å®¹
 		dirp = opendir(dir);
 		while ( (dp=readdir(dirp)) != NULL ) 
 		{
-			// ºöÂÔ . ºÍ ..
+			// å¿½ç•¥ . å’Œ ..
 			if ( (0 == strcmp(cur_dir, dp->d_name)) || (0 == strcmp(up_dir, dp->d_name)) )
 			{
 				continue;
 			}			
 			sprintf(dir_name, "%s/%s", dir, dp->d_name);
-			remove_mulu(dir_name);   // µİ¹éµ÷ÓÃ
+			remove_mulu(dir_name);   // é€’å½’è°ƒç”¨
 		}
 		closedir(dirp);
-		rmdir(dir);		// É¾³ı¿ÕÄ¿Â¼
+		rmdir(dir);		// åˆ é™¤ç©ºç›®å½•
 	} 
 	else 
 	{
-		printf("É¾³ıÊ§°Ü!\n");
+		printf("åˆ é™¤å¤±è´¥!\n");
 		return 0;	
 	}
 	return 3;
 }
 
-struct node *right_travel(struct node *T)		//±éÀúÓÒ×ÓÊ÷£¬ÕÒµ½ÏÂÒ»¸öÎª¿ÕµÄÖ¸Õë²¢·µ»Ø 
+struct node *right_travel(struct node *T)		//éå†å³å­æ ‘ï¼Œæ‰¾åˆ°ä¸‹ä¸€ä¸ªä¸ºç©ºçš„æŒ‡é’ˆå¹¶è¿”å› 
 {
 	struct node *str = NULL;
 	if(T->P_right == NULL)
@@ -97,7 +97,7 @@ struct node *right_travel(struct node *T)		//±éÀúÓÒ×ÓÊ÷£¬ÕÒµ½ÏÂÒ»¸öÎª¿ÕµÄÖ¸Õë²¢·
 	}	 
 }
 
-char *get_path()							//»ñÈ¡µ±Ç°Ä¿Â¼ 
+char *get_path()							//è·å–å½“å‰ç›®å½• 
 {
 	char *strpwd = NULL;
 	strpwd = (char *)malloc(sizeof(char[MAX_PATH]));	
@@ -105,44 +105,44 @@ char *get_path()							//»ñÈ¡µ±Ç°Ä¿Â¼
 	return strpwd;
 }
 
-void free_all(struct node *T)									//ÊÍ·Å¿Õ¼ä 
+void free_all(struct node *T)									//é‡Šæ”¾ç©ºé—´ 
 {
 	if(T == NULL )
 	{
 		return;
 	}
 	free_all(T->P_left);
-	free_all(T->P_right);										//ºóĞø±éÀúfree½áµã 
+	free_all(T->P_right);										//åç»­éå†freeç»“ç‚¹ 
 	free(T);
 }	 
 
-void del_NodeTree(struct node *Node_Tree)							//É¾³ı±Ê¼ÇµÄ½áµã 
-{																	//±Ê¼Ç½áµãÎŞ×óº¢×Ó 
-	Node_Tree->P_parents = Node_Tree->P_right; 						//¸¸½áµãÖ¸Ïò±Ê¼Ç½áµãµÄÓÒº¢×Ó 
-	free(Node_Tree); 												//ÊÍ·Å¸Ã½áµãµÄ¿Õ¼ä 
+void del_NodeTree(struct node *Node_Tree)							//åˆ é™¤ç¬”è®°çš„ç»“ç‚¹ 
+{																	//ç¬”è®°ç»“ç‚¹æ— å·¦å­©å­ 
+	Node_Tree->P_parents = Node_Tree->P_right; 						//çˆ¶ç»“ç‚¹æŒ‡å‘ç¬”è®°ç»“ç‚¹çš„å³å­©å­ 
+	free(Node_Tree); 												//é‡Šæ”¾è¯¥ç»“ç‚¹çš„ç©ºé—´ 
 }
 
-struct node *createfather()							//´´½¨Ê÷µÄ¸ù½áµã 
+struct node *createfather()							//åˆ›å»ºæ ‘çš„æ ¹ç»“ç‚¹ 
 {
 	struct node *father_Tree = (struct node *)malloc( sizeof(struct node) );
 	char *i = get_path();
 	father_Tree->label = 0;
 	sprintf(father_Tree->path,i);
-	strcat(father_Tree->path,"\\¿ªÊ¼");				//ÒÔÕâ¸öÂ·¾¶ÎªÏµÍ³µÄÖ÷Ä¿Â¼
-	sprintf(father_Tree->name,"¿ªÊ¼");				//ÆğÊ¼Ä¿Â¼ÉèÖÃÃû×ÖÎª ¡°¿ªÊ¼¡±		 
+	strcat(father_Tree->path,"\\å¼€å§‹");				//ä»¥è¿™ä¸ªè·¯å¾„ä¸ºç³»ç»Ÿçš„ä¸»ç›®å½•
+	sprintf(father_Tree->name,"å¼€å§‹");				//èµ·å§‹ç›®å½•è®¾ç½®åå­—ä¸º â€œå¼€å§‹â€		 
 	father_Tree->P_left = NULL;
 	father_Tree->P_parents = NULL;
 	father_Tree->P_right = NULL;
 	father_Tree->time = 0;
-	chdir(father_Tree->path);						//½«¹¤×÷Ö¸ÕëÇĞ»»µ½¡°¿ªÊ¼¡±Ä¿Â¼ 
+	chdir(father_Tree->path);						//å°†å·¥ä½œæŒ‡é’ˆåˆ‡æ¢åˆ°â€œå¼€å§‹â€ç›®å½• 
 	return father_Tree;
 }
 
-struct node *createtree_label(struct node *father,const char *name)			//´´½¨Ä¿Â¼ 
-{		//fatherÖ¸µÄÊÇ¸ÃÄ¿Â¼µÄ¸¸Ä¿Â¼µÄ½áµã(²»Ò»¶¨ÊÇÉÏÒ»¸ö½áµã) 		//nameÊÇ¸ÃÄ¿Â¼µÄÃû³Æ 
+struct node *createtree_label(struct node *father,const char *name)			//åˆ›å»ºç›®å½• 
+{		//fatheræŒ‡çš„æ˜¯è¯¥ç›®å½•çš„çˆ¶ç›®å½•çš„ç»“ç‚¹(ä¸ä¸€å®šæ˜¯ä¸Šä¸€ä¸ªç»“ç‚¹) 		//nameæ˜¯è¯¥ç›®å½•çš„åç§° 
 	struct node *Node_Tree = (struct node *)malloc( sizeof(struct node) );
 	struct node *str = NULL;
-	Node_Tree->label = 0;											//¸ÃÎÄ¼şÀàĞÍÎªÄ¿Â¼ 
+	Node_Tree->label = 0;											//è¯¥æ–‡ä»¶ç±»å‹ä¸ºç›®å½• 
 	Node_Tree->P_left = NULL;	
 	Node_Tree->P_right = NULL;
 	Node_Tree->time = 0;
@@ -150,33 +150,33 @@ struct node *createtree_label(struct node *father,const char *name)			//´´½¨Ä¿Â¼
 	strcpy(Node_Tree->path,father->path);
 	strcat(Node_Tree->path,"\\"); 
 	strcat(Node_Tree->path,name);
-	//ÔÚ¸¸½áµãµÄÂ·¾¶ÉÏÔö¼Ó¡°\\name¡±¡ª¡ª¾ÍÊÇ×Ó½áµãµÄÂ·¾¶ 
-   	/*	"D:\C³ÌĞò\ÎÄ¼şµÄµİ¹é²éÕÒ\¿ªÊ¼\1"  Õâ¸öÊÇÀı×Ó  */
-	/*"D:\C³ÌĞò\ÎÄ¼şµÄµİ¹é²éÕÒ\¿ªÊ¼\1\ĞÂ½¨ÎÄ±¾ÎÄµµ.txt" */
-	if(father->P_left != NULL)					//¸Ã¸¸Ä¿Â¼ÓĞ×óº¢×Ó 
+	//åœ¨çˆ¶ç»“ç‚¹çš„è·¯å¾„ä¸Šå¢åŠ â€œ\\nameâ€â€”â€”å°±æ˜¯å­ç»“ç‚¹çš„è·¯å¾„ 
+   	/*	"D:\Cç¨‹åº\æ–‡ä»¶çš„é€’å½’æŸ¥æ‰¾\å¼€å§‹\1"  è¿™ä¸ªæ˜¯ä¾‹å­  */
+	/*"D:\Cç¨‹åº\æ–‡ä»¶çš„é€’å½’æŸ¥æ‰¾\å¼€å§‹\1\æ–°å»ºæ–‡æœ¬æ–‡æ¡£.txt" */
+	if(father->P_left != NULL)					//è¯¥çˆ¶ç›®å½•æœ‰å·¦å­©å­ 
 	{		
 		str = right_travel(father->P_left);
 		str->P_right = Node_Tree;
 		Node_Tree->P_parents = str;
 	}
-	else										//¸Ã¸¸Ä¿Â¼ÎŞ×óº¢×Ó 
+	else										//è¯¥çˆ¶ç›®å½•æ— å·¦å­©å­ 
 	{	
 		father->P_left = Node_Tree;
 		Node_Tree->P_parents = father;
 	}
-	chdir(Node_Tree->path);						//½«¹¤×÷Ö¸ÕëÖ¸ÏòĞÂÄ¿Â¼ 
+	chdir(Node_Tree->path);						//å°†å·¥ä½œæŒ‡é’ˆæŒ‡å‘æ–°ç›®å½• 
 	return Node_Tree;
 }
 
-struct node *create_left_txt(struct node *father,const char *name)	//Ôö¼Ó×Ó½áµã_±Ê¼ÇÎÄ¼ş 
-{	//fatherÖ¸µÄÊÇÄ¿Â¼µÄ¸¸Ä¿Â¼µÄ½áµã(²»Ò»¶¨ÊÇÉÏÒ»¸ö½áµã)
+struct node *create_left_txt(struct node *father,const char *name)	//å¢åŠ å­ç»“ç‚¹_ç¬”è®°æ–‡ä»¶ 
+{	//fatheræŒ‡çš„æ˜¯ç›®å½•çš„çˆ¶ç›®å½•çš„ç»“ç‚¹(ä¸ä¸€å®šæ˜¯ä¸Šä¸€ä¸ªç»“ç‚¹)
 	struct node *Node_Tree = (struct node *)malloc( sizeof(struct node) );
 	struct node *str = NULL;
 	Node_Tree->label = 1;
 	sprintf(Node_Tree->path,father->path);
-	strcat(Node_Tree->path,"\\");	//ÔÚ¸¸½áµãµÄÂ·¾¶ÉÏÔö¼Ó¡°\\name¡±¡ª¡ª¾ÍÊÇ×Ó½áµãµÄÂ·¾¶ 
-/*	"D:\C³ÌĞò\ÎÄ¼şµÄµİ¹é²éÕÒ\¿ªÊ¼\1"  Õâ¸öÊÇÀı×Ó 
-	"D:\C³ÌĞò\ÎÄ¼şµÄµİ¹é²éÕÒ\¿ªÊ¼\1\ĞÂ½¨ÎÄ±¾ÎÄµµ.txt"*/
+	strcat(Node_Tree->path,"\\");	//åœ¨çˆ¶ç»“ç‚¹çš„è·¯å¾„ä¸Šå¢åŠ â€œ\\nameâ€â€”â€”å°±æ˜¯å­ç»“ç‚¹çš„è·¯å¾„ 
+/*	"D:\Cç¨‹åº\æ–‡ä»¶çš„é€’å½’æŸ¥æ‰¾\å¼€å§‹\1"  è¿™ä¸ªæ˜¯ä¾‹å­ 
+	"D:\Cç¨‹åº\æ–‡ä»¶çš„é€’å½’æŸ¥æ‰¾\å¼€å§‹\1\æ–°å»ºæ–‡æœ¬æ–‡æ¡£.txt"*/
 	strcat(Node_Tree->path,name);
 	strcat(Node_Tree->path,".txt");
 	sprintf(Node_Tree->name,name);
@@ -196,11 +196,11 @@ struct node *create_left_txt(struct node *father,const char *name)	//Ôö¼Ó×Ó½áµã_
 		Node_Tree->P_parents = father;
 	}
 	
-	return Node_Tree;							//²¢·µ»ØÖ¸Ïò¸ÃÎÄ¼şµÄÖ¸Õë 
+	return Node_Tree;							//å¹¶è¿”å›æŒ‡å‘è¯¥æ–‡ä»¶çš„æŒ‡é’ˆ 
 }
 
-struct node *Travsal_name(struct node *T,char *name)			//Ç°Ğò±éÀú,²é¿´½áµãÊÇ·ñÓĞÏàÍ¬Ãû×Ö 
-{																//ÓĞµÄ»°£¬Òª·µ»ØÖ¸Ïò¸Ã½áµãµÄÖ¸Õë 
+struct node *Travsal_name(struct node *T,char *name)			//å‰åºéå†,æŸ¥çœ‹ç»“ç‚¹æ˜¯å¦æœ‰ç›¸åŒåå­— 
+{																//æœ‰çš„è¯ï¼Œè¦è¿”å›æŒ‡å‘è¯¥ç»“ç‚¹çš„æŒ‡é’ˆ 
 	char *str = NULL;
 	int top = -1;
 	if(T == NULL)
@@ -217,8 +217,8 @@ struct node *Travsal_name(struct node *T,char *name)			//Ç°Ğò±éÀú,²é¿´½áµãÊÇ·ñÓĞ
 	while(top != -1)
 	{
 		p = Stack[top--];
-		sprintf(pat,p->name);								//°Ñp->name¸´ÖÆµ½patÀïÃæÈ¥
-		if( strcmp(name,pat) == 0 )			//ÕÒµ½Ãû×Ö²¢ÇÒ¸ÃÎÄ¼şÊÇ±Ê¼Ç¶ø²»ÊÇÄ¿Â¼ 
+		sprintf(pat,p->name);								//æŠŠp->nameå¤åˆ¶åˆ°paté‡Œé¢å»
+		if( strcmp(name,pat) == 0 )			//æ‰¾åˆ°åå­—å¹¶ä¸”è¯¥æ–‡ä»¶æ˜¯ç¬”è®°è€Œä¸æ˜¯ç›®å½• 
 		{
 			return p;	
 		} 
@@ -236,7 +236,7 @@ struct node *Travsal_name(struct node *T,char *name)			//Ç°Ğò±éÀú,²é¿´½áµãÊÇ·ñÓĞ
 	return NULL;
 }	
 
-void PreOrderTravsal(struct node *T,const char *path)		//Ç°Ğò±éÀú,²é¿´ÊÇ·ñÓĞÏàÍ¬Â·¾¶ 
+void PreOrderTravsal(struct node *T,const char *path)		//å‰åºéå†,æŸ¥çœ‹æ˜¯å¦æœ‰ç›¸åŒè·¯å¾„ 
 {
 	char *str = NULL;
 	if(T == NULL)
@@ -245,16 +245,16 @@ void PreOrderTravsal(struct node *T,const char *path)		//Ç°Ğò±éÀú,²é¿´ÊÇ·ñÓĞÏàÍ¬
 	}
 	char *pat = NULL;
 	pat = (char *)malloc( sizeof(T->path) );
-	sprintf(pat,T->path);									//°ÑT.path¸´ÖÆµ½patÀïÃæÈ¥ 
+	sprintf(pat,T->path);									//æŠŠT.pathå¤åˆ¶åˆ°paté‡Œé¢å» 
 	if( strcmp(path,pat) == 0 )
 	{
-		sign = 1;									//ÕÒµ½ÁË±ãÖÃ1,sign³õÖµÎª0 
+		sign = 1;									//æ‰¾åˆ°äº†ä¾¿ç½®1,signåˆå€¼ä¸º0 
 		return;
 	}
 	else
 	{
-		str = strstr(pat,path);						//Èç¹ûÓÃ»§ÊäÈëµÄÊÇÏà¶ÔÂ·¾¶ 
-		if( str != NULL )							//ÊäÈëµÄÊÇ¾ø¶ÔÂ·¾¶µÄ×ÓÂ·¾¶£¬ÔòÖ¸Õë²»Îª¿Õ 
+		str = strstr(pat,path);						//å¦‚æœç”¨æˆ·è¾“å…¥çš„æ˜¯ç›¸å¯¹è·¯å¾„ 
+		if( str != NULL )							//è¾“å…¥çš„æ˜¯ç»å¯¹è·¯å¾„çš„å­è·¯å¾„ï¼Œåˆ™æŒ‡é’ˆä¸ä¸ºç©º 
 		{
 			sign = 1;
 			return;
@@ -265,8 +265,8 @@ void PreOrderTravsal(struct node *T,const char *path)		//Ç°Ğò±éÀú,²é¿´ÊÇ·ñÓĞÏàÍ¬
 	PreOrderTravsal(T->P_right,path);
 }
 
-struct node *OrderTravsal(struct node *T,const char *path)		//Ç°Ğò±éÀú,²é¿´½áµãÊÇ·ñÓĞÏàÍ¬Â·¾¶ 
-{																//ÓĞµÄ»°£¬Òª·µ»ØÖ¸Ïò¸Ã½áµãµÄÖ¸Õë 
+struct node *OrderTravsal(struct node *T,const char *path)		//å‰åºéå†,æŸ¥çœ‹ç»“ç‚¹æ˜¯å¦æœ‰ç›¸åŒè·¯å¾„ 
+{																//æœ‰çš„è¯ï¼Œè¦è¿”å›æŒ‡å‘è¯¥ç»“ç‚¹çš„æŒ‡é’ˆ 
 	char *str = NULL;
 	int top = -1;
 	if(T == NULL)
@@ -288,7 +288,7 @@ struct node *OrderTravsal(struct node *T,const char *path)		//Ç°Ğò±éÀú,²é¿´½áµãÊ
 	while(top != -1)
 	{
 		p = Stack[top--];
-		sprintf(pat,p->path);									//°Ñp->path¸´ÖÆµ½patÀïÃæÈ¥
+		sprintf(pat,p->path);									//æŠŠp->pathå¤åˆ¶åˆ°paté‡Œé¢å»
 		if( strcmp(path,pat) == 0 || strstr(pat,path) != NULL )
 		{
 			return p;	
@@ -308,7 +308,7 @@ struct node *OrderTravsal(struct node *T,const char *path)		//Ç°Ğò±éÀú,²é¿´½áµãÊ
 }
 
 struct node *find_first(struct node *father_Tree,struct node *Node_Tree,const char *path)
-{			//ÀûÓÃÂ·¾¶ÕÒµ½½áµãµÄµÚÒ»¸ö¸¸½áµã
+{			//åˆ©ç”¨è·¯å¾„æ‰¾åˆ°ç»“ç‚¹çš„ç¬¬ä¸€ä¸ªçˆ¶ç»“ç‚¹
 	char path_buffer[_MAX_PATH];
    char drive[_MAX_DRIVE];
    char dir[_MAX_DIR];
@@ -321,7 +321,7 @@ struct node *find_first(struct node *father_Tree,struct node *Node_Tree,const ch
    _splitpath( path_buffer, drive, dir, fname, ext );
 	strcpy(path_n,drive);
 	strcat(path_n,dir);
-	/************½«path_nµÄ×îºóÒ»¸ö¡®\¡¯É¾³ı*******************/ 
+	/************å°†path_nçš„æœ€åä¸€ä¸ªâ€˜\â€™åˆ é™¤*******************/ 
 	path_n[strlen(path_n)-1]='\0';
     /**********************************************************/
     ppp = OrderTravsal(father_Tree,path_n);	 
@@ -335,8 +335,8 @@ struct node *find_first(struct node *father_Tree,struct node *Node_Tree,const ch
 	}
 }
 
-struct node *OrderTravsal_parent(struct node *T,const char *path)//Ç°Ğò±éÀú,²é¿´½áµãµÄº¢×ÓÊÇ·ñÓĞÏàÍ¬Â·¾¶ 
-{																//ÓĞµÄ»°£¬Òª·µ»Ø¸Ã½áµã¸¸Ä¿Â¼µÄÖ¸Õë 
+struct node *OrderTravsal_parent(struct node *T,const char *path)//å‰åºéå†,æŸ¥çœ‹ç»“ç‚¹çš„å­©å­æ˜¯å¦æœ‰ç›¸åŒè·¯å¾„ 
+{																//æœ‰çš„è¯ï¼Œè¦è¿”å›è¯¥ç»“ç‚¹çˆ¶ç›®å½•çš„æŒ‡é’ˆ 
 	char *str = NULL;
 	struct node *p = NULL;
 	struct node *a = NULL;
@@ -356,17 +356,17 @@ struct node *OrderTravsal_parent(struct node *T,const char *path)//Ç°Ğò±éÀú,²é¿´
 	{
 		p = Stack[top_1--];
 /********************************************************/			
-		memset(pat,0,sizeof(pat));								//Çå¿Õ 
-		sprintf(pat,p->path);									//°Ñp->path¸´ÖÆµ½patÀïÃæÈ¥
+		memset(pat,0,sizeof(pat));								//æ¸…ç©º 
+		sprintf(pat,p->path);									//æŠŠp->pathå¤åˆ¶åˆ°paté‡Œé¢å»
 		if( strcmp(path,pat) == 0 )
 		{				
-			if( p->P_parents == NULL || p->P_parents->P_right != p)		//Õâ¾ä»¹ÓĞµãÎÊÌâ  
+			if( p->P_parents == NULL || p->P_parents->P_right != p)		//è¿™å¥è¿˜æœ‰ç‚¹é—®é¢˜  
 			{
 				return p;
 			}
 			else
 			{
-				a = find_first(T,p,path);		//ÕÒµ½¸¸Ä¿Â¼µÄ½áµã 
+				a = find_first(T,p,path);		//æ‰¾åˆ°çˆ¶ç›®å½•çš„ç»“ç‚¹ 
 				if(a != NULL)
 				{
 					return a;
@@ -393,13 +393,13 @@ struct node *OrderTravsal_parent(struct node *T,const char *path)//Ç°Ğò±éÀú,²é¿´
 	return NULL;
 }
 
-void perorder(struct node *T)				//´òÓ¡Ê÷ 
+void perorder(struct node *T)				//æ‰“å°æ ‘ 
 {
 	if(T == NULL)
 	{
 		return;
 	}
-	printf("ÎÄ¼şÃû³Æ:%s\tÎÄ¼şÂ·¾¶:%s\n",T->name,T->path);
+	printf("æ–‡ä»¶åç§°:%s\tæ–‡ä»¶è·¯å¾„:%s\n",T->name,T->path);
 	perorder(T->P_left);
 	perorder(T->P_right);
 }
@@ -423,113 +423,113 @@ char *divide_filename(const char *path)
 /*******************************************************************************/
 
 
-/******************************Ö±½Óµ÷ÓÃµÄº¯Êı***********************************/
-void cd_pre(struct node *T)    			//ÒÆ¶¯µ½ÉÏ¼¶Ä¿Â¼ 
+/******************************ç›´æ¥è°ƒç”¨çš„å‡½æ•°***********************************/
+void cd_pre(struct node *T)    			//ç§»åŠ¨åˆ°ä¸Šçº§ç›®å½• 
 {
-	char *i = get_path();						//»ñÈ¡µ±Ç°Â·¾¶ 
+	char *i = get_path();						//è·å–å½“å‰è·¯å¾„ 
 	char *p = NULL;
-	struct node *str = OrderTravsal(T,i);	//ÔÚÊ÷ÖĞÑ°ÕÒ¸ÃÂ·¾¶µÄ½áµã£¬²¢·µ»ØÖ¸ÏòËüµÄÖ¸Õë 
-	if( str->P_parents == NULL )				//Èç¹û¸¸½áµãÎª¿Õ£¬¼´¸Ã½áµãÎª¸ù½Úµã 
+	struct node *str = OrderTravsal(T,i);	//åœ¨æ ‘ä¸­å¯»æ‰¾è¯¥è·¯å¾„çš„ç»“ç‚¹ï¼Œå¹¶è¿”å›æŒ‡å‘å®ƒçš„æŒ‡é’ˆ 
+	if( str->P_parents == NULL )				//å¦‚æœçˆ¶ç»“ç‚¹ä¸ºç©ºï¼Œå³è¯¥ç»“ç‚¹ä¸ºæ ¹èŠ‚ç‚¹ 
 	{
-		printf("ÇĞ»»Ê§°Ü£¡Çë²é¿´ÊÇ·ñÎª¸ùÄ¿Â¼£¡\n");
+		printf("åˆ‡æ¢å¤±è´¥ï¼è¯·æŸ¥çœ‹æ˜¯å¦ä¸ºæ ¹ç›®å½•ï¼\n");
 	}
 	else
 	{
-		if( chdir(str->P_parents->path) == 0 )	//ÇĞ»»µ½¸¸½áµãµÄÂ·¾¶
+		if( chdir(str->P_parents->path) == 0 )	//åˆ‡æ¢åˆ°çˆ¶ç»“ç‚¹çš„è·¯å¾„
 		{
-			printf("ÇĞ»»³É¹¦£¡\n");
+			printf("åˆ‡æ¢æˆåŠŸï¼\n");
 			p = get_path();
-			printf("µ±Ç°ËùÔÚÄ¿Â¼Îª£º%s\n",p);
+			printf("å½“å‰æ‰€åœ¨ç›®å½•ä¸ºï¼š%s\n",p);
 		}
 		else
 		{
-			printf("ÇĞ»»Ê§°Ü£¡·¢ÉúÎ´Öª´íÎó\n");
+			printf("åˆ‡æ¢å¤±è´¥ï¼å‘ç”ŸæœªçŸ¥é”™è¯¯\n");
 		}
 	}		
 }
 
-struct node *cd(struct node *T)			//ÇĞ»»¹¤×÷Ä¿Â¼µ½Ö¸¶¨Ä¿Â¼,²¢·µ»ØÖ¸Ïò¸ÃÄ¿Â¼µÄÖ¸Õë 
+struct node *cd(struct node *T)			//åˆ‡æ¢å·¥ä½œç›®å½•åˆ°æŒ‡å®šç›®å½•,å¹¶è¿”å›æŒ‡å‘è¯¥ç›®å½•çš„æŒ‡é’ˆ 
 {											
 	char *path= NULL;
 	char *str = NULL;			
 	path = (char *)malloc( sizeof(char[260]) );
-	printf("¡ª¡ª¡ª¡ª¿ÉÊäÈëÄúÒªÇĞ»»µ½µÄÎÄ¼ş¼ĞµÄ¾ø¶ÔÂ·¾¶!¡ª¡ª¡ª¡ª\n");
-	printf("¡ª¡ª¡ª¡ª×¢ÒâÂ·¾¶ÖĞµÄ '\\' Òª³É¶Ô³öÏÖ¡ª¡ª¡ª¡ª\n");
-	printf("¡ª¡ª¡ª¡ªÒ²¿ÉÒÔÕâÑùÊäÈë£º Ä¿Â¼\\Ä¿Â¼\\ÎÄ¼ş('¿ªÊ¼'²»±ØÊäÈë)¡ª¡ª¡ª¡ª\n"); 
-	printf("ÇëÊäÈë£º");
+	printf("â€”â€”â€”â€”å¯è¾“å…¥æ‚¨è¦åˆ‡æ¢åˆ°çš„æ–‡ä»¶å¤¹çš„ç»å¯¹è·¯å¾„!â€”â€”â€”â€”\n");
+	printf("â€”â€”â€”â€”æ³¨æ„è·¯å¾„ä¸­çš„ '\\' è¦æˆå¯¹å‡ºç°â€”â€”â€”â€”\n");
+	printf("â€”â€”â€”â€”ä¹Ÿå¯ä»¥è¿™æ ·è¾“å…¥ï¼š ç›®å½•\\ç›®å½•\\æ–‡ä»¶('å¼€å§‹'ä¸å¿…è¾“å…¥)â€”â€”â€”â€”\n"); 
+	printf("è¯·è¾“å…¥ï¼š");
 	scanf("%s",path);
-	if( strcmp(path,"¿ªÊ¼")==0 || strcmp(path,"¿ªÊ¼\\")==0 || strcmp(path,"\\¿ªÊ¼")==0 || strcmp(path,"\\¿ªÊ¼\\")==0)
-	{										//Èç¹ûÓÃ»§ÊÇÒª»Øµ½¡°¿ªÊ¼¡±²Ëµ¥ 
-		chdir(T->path); 					//Ö±½ÓÇĞ»»µ½¸ù½Úµã 
-		printf("ÇĞ»»³É¹¦!\n");
+	if( strcmp(path,"å¼€å§‹")==0 || strcmp(path,"å¼€å§‹\\")==0 || strcmp(path,"\\å¼€å§‹")==0 || strcmp(path,"\\å¼€å§‹\\")==0)
+	{										//å¦‚æœç”¨æˆ·æ˜¯è¦å›åˆ°â€œå¼€å§‹â€èœå• 
+		chdir(T->path); 					//ç›´æ¥åˆ‡æ¢åˆ°æ ¹èŠ‚ç‚¹ 
+		printf("åˆ‡æ¢æˆåŠŸ!\n");
 		str = get_path();
-		printf("µ±Ç°ËùÔÚÄ¿Â¼Îª£º%s\n",str);
-		return T;							// ²¢·µ»ØÖ¸Ïò¸ù½áµãµÄÖ¸Õë 
+		printf("å½“å‰æ‰€åœ¨ç›®å½•ä¸ºï¼š%s\n",str);
+		return T;							// å¹¶è¿”å›æŒ‡å‘æ ¹ç»“ç‚¹çš„æŒ‡é’ˆ 
 	} 
-	struct node *p = OrderTravsal(T,path);					//ÕÒµ½ºó°ÑÖ¸ÕëÅª³öÀ´
+	struct node *p = OrderTravsal(T,path);					//æ‰¾åˆ°åæŠŠæŒ‡é’ˆå¼„å‡ºæ¥
 	if( p != NULL)									
 	{
-		chdir(T->path);						//ÇĞ»»¹¤×÷Ö¸Õëµ½¿ªÊ¼Ä¿Â¼ 
+		chdir(T->path);						//åˆ‡æ¢å·¥ä½œæŒ‡é’ˆåˆ°å¼€å§‹ç›®å½• 
 		if(chdir(path) == 0)
 		{
-			printf("ÇĞ»»³É¹¦£¡\n");
+			printf("åˆ‡æ¢æˆåŠŸï¼\n");
 			str = get_path();
-			printf("µ±Ç°ËùÔÚÄ¿Â¼Îª£º%s\n",str);
+			printf("å½“å‰æ‰€åœ¨ç›®å½•ä¸ºï¼š%s\n",str);
 			system("pause");
-			return p;										//ÇĞ»»ºó£¬»á½«¸ÃÎ»ÖÃµÄÖ¸Õë·µ»Ø 
+			return p;										//åˆ‡æ¢åï¼Œä¼šå°†è¯¥ä½ç½®çš„æŒ‡é’ˆè¿”å› 
 		}
 		else
 		{
-			printf("ÇĞ»»Ê§°Ü£¡\n");
+			printf("åˆ‡æ¢å¤±è´¥ï¼\n");
 			system("pause");
 		}
 	}
 	else
 	{
-		printf("ÎŞ´ËÄ¿Â¼£¡\n");
+		printf("æ— æ­¤ç›®å½•ï¼\n");
 	}	
 	free(path);
 }
 
 
-void md(struct node *T)  			//´´½¨Ä¿Â¼(ÔÚµ±Ç°¹¤×÷Ö¸Õë´¦´´½¨×ÓÄ¿Â¼)
-{											//ĞèÒªÊäÈëÖ¸ÏòÊ÷¸ùµÄÖ¸Õë 
-	char *mulu = NULL;						//´´½¨Íê³Éºó£¬»á·µ»ØÖ¸Ïò¸ÃĞÂÄ¿Â¼µÄÖ¸Õë,²¢½«¹¤×÷Ö¸ÕëÒÆµ½ÕâÀï 
-	char *i = get_path();					//»ñÈ¡µ±Ç°Â·¾¶ 
-	struct node *p = NULL;					//Èç¹ûµ±Ç°Ä¿Â¼ÒÑÓĞ×ÓÄ¿Â¼£¬»á´´½¨ÔÚ×ÓÄ¿Â¼ÓÒ×ÓÊ÷µÄ×îÏÂÃæ 
+void md(struct node *T)  			//åˆ›å»ºç›®å½•(åœ¨å½“å‰å·¥ä½œæŒ‡é’ˆå¤„åˆ›å»ºå­ç›®å½•)
+{											//éœ€è¦è¾“å…¥æŒ‡å‘æ ‘æ ¹çš„æŒ‡é’ˆ 
+	char *mulu = NULL;						//åˆ›å»ºå®Œæˆåï¼Œä¼šè¿”å›æŒ‡å‘è¯¥æ–°ç›®å½•çš„æŒ‡é’ˆ,å¹¶å°†å·¥ä½œæŒ‡é’ˆç§»åˆ°è¿™é‡Œ 
+	char *i = get_path();					//è·å–å½“å‰è·¯å¾„ 
+	struct node *p = NULL;					//å¦‚æœå½“å‰ç›®å½•å·²æœ‰å­ç›®å½•ï¼Œä¼šåˆ›å»ºåœ¨å­ç›®å½•å³å­æ ‘çš„æœ€ä¸‹é¢ 
 	struct node *str = NULL;
 	mulu = (char *)malloc( sizeof(char [260]) );
-	printf("µ±Ç°ËùÔÚÄ¿Â¼:%s\n",i);
-	printf("ÇëÊäÈëÄ¿Â¼Ãû³Æ(×¢Òâ£ºÊÇ´´½¨¸ÃÄ¿Â¼ÏÂµÄ×ÓÄ¿Â¼)£º");
-	scanf("%s",mulu);						//Ä¿Â¼µÄÃû³Æ 
-	p = OrderTravsal_parent(T,i);			//µ±ÕÒµ½µ±Ç°Â·¾¶ËùÔÚÄ¿Â¼µÄ¸¸Ä¿Â¼µÄ½áµãÊ±¾ÍÍ£Ö¹	
-	/*»¹Òª¿´¿´¸Ã¸¸Ä¿Â¼½áµãÓĞÃ»ÓĞ×ó×ÓÊ÷£¬×ó×ÓÊ÷ÉÏÓĞÃ»ÓĞÓÒ×ÓÊ÷*/ 
+	printf("å½“å‰æ‰€åœ¨ç›®å½•:%s\n",i);
+	printf("è¯·è¾“å…¥ç›®å½•åç§°(æ³¨æ„ï¼šæ˜¯åˆ›å»ºè¯¥ç›®å½•ä¸‹çš„å­ç›®å½•)ï¼š");
+	scanf("%s",mulu);						//ç›®å½•çš„åç§° 
+	p = OrderTravsal_parent(T,i);			//å½“æ‰¾åˆ°å½“å‰è·¯å¾„æ‰€åœ¨ç›®å½•çš„çˆ¶ç›®å½•çš„ç»“ç‚¹æ—¶å°±åœæ­¢	
+	/*è¿˜è¦çœ‹çœ‹è¯¥çˆ¶ç›®å½•ç»“ç‚¹æœ‰æ²¡æœ‰å·¦å­æ ‘ï¼Œå·¦å­æ ‘ä¸Šæœ‰æ²¡æœ‰å³å­æ ‘*/ 
 	if(mkdir(mulu) == 0)
 	{
 		if( p != NULL) 
 		{
-			createtree_label(p,mulu);				//Îª¸ÃÄ¿Â¼´´½¨Ò»¸öÊ÷µÄ½áµã
-			printf("´´½¨ %s Ä¿Â¼³É¹¦!\n",mulu);
+			createtree_label(p,mulu);				//ä¸ºè¯¥ç›®å½•åˆ›å»ºä¸€ä¸ªæ ‘çš„ç»“ç‚¹
+			printf("åˆ›å»º %s ç›®å½•æˆåŠŸ!\n",mulu);
 			system("pause");			
 		}
 		else
 		{
-			printf("ÏµÍ³ÎÄ¼ş³öÏÖ¹ÊÕÏ£¡Çë²é¿´ÊÇ·ñ±»ĞŞ¸Ä!\n");
+			printf("ç³»ç»Ÿæ–‡ä»¶å‡ºç°æ•…éšœï¼è¯·æŸ¥çœ‹æ˜¯å¦è¢«ä¿®æ”¹!\n");
 			system("pause"); 
 		}								
 	}
 	else
 	{
-		printf("´´½¨Ê§°Ü£¡\n");
+		printf("åˆ›å»ºå¤±è´¥ï¼\n");
 		system("pause");
 	}
 } 
 
-void rm_r(struct node *T)  							/*É¾³ıÄ¿Â¼£¬²¢ÔÚÉ¾³ıÄ¿Â¼µÄÍ¬Ê± */
-{												/*½«¸Ã½áµã¼°Æä×ó×ÓÊ÷ÉÏËùÓĞµÄ½áµãÉ¾³ı */
+void rm_r(struct node *T)  							/*åˆ é™¤ç›®å½•ï¼Œå¹¶åœ¨åˆ é™¤ç›®å½•çš„åŒæ—¶ */
+{												/*å°†è¯¥ç»“ç‚¹åŠå…¶å·¦å­æ ‘ä¸Šæ‰€æœ‰çš„ç»“ç‚¹åˆ é™¤ */
 	char *mulu = NULL;			 
 	mulu = (char *)malloc(sizeof(T->name));
-	printf("ÇëÊäÈëÄúÒªÉ¾³ıµÄÄ¿Â¼Ãû³Æ£º");
+	printf("è¯·è¾“å…¥æ‚¨è¦åˆ é™¤çš„ç›®å½•åç§°ï¼š");
 	scanf("%s",mulu);
 	struct node *str = Travsal_name(T,mulu);
 	if(str != NULL )
@@ -538,98 +538,113 @@ void rm_r(struct node *T)  							/*É¾³ıÄ¿Â¼£¬²¢ÔÚÉ¾³ıÄ¿Â¼µÄÍ¬Ê± */
 		{
 			if(remove_mulu(str->path) == 3)
 			{
-				printf("É¾³ıÖĞ.....\n");
-				//É¾³ıstr¸Ã½áµã£¬È»ºó°ÑÓÒ½ÚµãÉÏµÄ½ÓÉÏ 
+				printf("åˆ é™¤ä¸­.....\n");
+				//åˆ é™¤stræŒ‡å‘çš„ç»“ç‚¹ï¼Œç„¶åæŠŠå³èŠ‚ç‚¹ä¸Šçš„æ¥ä¸Š
+				//å¦‚æœstræ˜¯åˆ«äººçš„å·¦å­©å­ï¼Œéœ€è¦æŠŠstr->P_rightæ›¿ä»£strçš„ä½ç½® 
 				free_all(str->P_left);
-				str->P_left = NULL; 
-				str->P_parents->P_right = str->P_right;
-				str->P_parents->P_right->P_parents = str->P_parents;
+				str->P_left = NULL;  //å¤„ç†æ‰strçš„å·¦å­©å­
+				if(str->P_parents->P_left == str)		//å¦‚æœæ²¡æœ‰äººçš„å³æŒ‡é’ˆæŒ‡å‘str 
+				{
+					str->P_parents->P_left = str->P_right;	//å°±æŠŠstrå³è¾¹ç¬¬ä¸€ä¸ªå˜æˆstrçˆ¶ç»“ç‚¹çš„å·¦å­©å­ 
+					if(str->P_right != NULL)
+					{
+						str->P_right = str->P_parents;		//è®©å³è¾¹ç¬¬ä¸€ä¸ªçš„çˆ¶æŒ‡é’ˆæŒ‡å‘æ–°çš„çˆ¶ç»“ç‚¹ 
+					}					
+				} 
+				else
+				{
+					str->P_parents->P_right = str->P_right;	//å¦‚æœæœ‰äººçš„å³æŒ‡é’ˆæŒ‡å‘str 
+					if(str->P_right != NULL)
+					{
+						str->P_parents->P_right->P_parents = str->P_parents;
+					}
+				}				
 				str->P_right = NULL; 
-				str = NULL;			
+				str = NULL;		
 				free(str);							
-				printf("É¾³ıÄ¿Â¼ %s ³É¹¦!\n",mulu);
+				printf("åˆ é™¤ç›®å½• %s æˆåŠŸ!\n",mulu);
 			}
 			else
 			{
-				printf("É¾³ıÄ¿Â¼Ê§°Ü£¡\n");
+				printf("åˆ é™¤ç›®å½•å¤±è´¥ï¼\n");
 			}
 		}
 		else
 		{
-			printf("Î´ÕÒµ½¸ÃÃû³ÆµÄÎÄ¼ş£¡\n");
+			printf("æœªæ‰¾åˆ°è¯¥åç§°çš„æ–‡ä»¶ï¼\n");
 		}
 	}
 	else
 	{
-		printf("Î´ÕÒµ½¸ÃÃû³ÆµÄÎÄ¼ş£¡\n");
+		printf("æœªæ‰¾åˆ°è¯¥åç§°çš„æ–‡ä»¶ï¼\n");
 	} 
 	free(mulu);	
 } 
  
-void rm(struct node *T)												//¶Ô±Ê¼ÇÎÄ¼ş½øĞĞÉ¾³ı 
+void rm(struct node *T)												//å¯¹ç¬”è®°æ–‡ä»¶è¿›è¡Œåˆ é™¤ 
 {		
 	char *name = NULL;
 	name = (char *)malloc( sizeof(T->name) );
 	sign = 0;
-	printf("ÇëÊäÈëÒªÉ¾³ı±Ê¼ÇµÄÃû×Ö:");
+	printf("è¯·è¾“å…¥è¦åˆ é™¤ç¬”è®°çš„åå­—:");
 	scanf("%s",name);
 	strcat(name,".txt");
-	struct node *str = Travsal_name(T,name);						//±éÀú²é¿´ÊÇ·ñÓĞ¸ÃÃû×ÖµÄ½áµã
-	if( str != NULL )												//Èç¹ûÈ·ÊµÓĞ 
+	struct node *str = Travsal_name(T,name);						//éå†æŸ¥çœ‹æ˜¯å¦æœ‰è¯¥åå­—çš„ç»“ç‚¹
+	if( str != NULL )												//å¦‚æœç¡®å®æœ‰ 
 	{
 		if(str->label == 1)
 		{
-			if( remove(str->path) == 0 )								//É¾³ı¸ÃÎÄ¼ş 
+			if( remove(str->path) == 0 )								//åˆ é™¤è¯¥æ–‡ä»¶ 
 			{
-				del_NodeTree(str);										//É¾³ı¸Ã½áµã 
-				printf("É¾³ı³É¹¦£¡\n");
+				del_NodeTree(str);										//åˆ é™¤è¯¥ç»“ç‚¹ 
+				printf("åˆ é™¤æˆåŠŸï¼\n");
 			}	
 			else
 			{
-				printf("É¾³ıÊ§°Ü!\n");
+				printf("åˆ é™¤å¤±è´¥!\n");
 			} 
 		}
 		else
 		{
-			printf("ÎŞ´ËÃû³ÆµÄÎÄ¼ş£¡É¾³ıÊ§°Ü£¡\n");
+			printf("æ— æ­¤åç§°çš„æ–‡ä»¶ï¼åˆ é™¤å¤±è´¥ï¼\n");
 		}
 	}
 	else
 	{
-		printf("ÎŞ´ËÃû³ÆµÄÎÄ¼ş£¡É¾³ıÊ§°Ü£¡\n");
+		printf("æ— æ­¤åç§°çš„æ–‡ä»¶ï¼åˆ é™¤å¤±è´¥ï¼\n");
 	}
 } 
 /*******************************************************************************/
 
-/*********************ÎÄ¼şµÄÊäÈëÊä³ö**********************/
+/*********************æ–‡ä»¶çš„è¾“å…¥è¾“å‡º**********************/
 
-void full_filename(struct node *Node_Tree)  //²¹È«Â·¾¶º¯Êı·â×°	
-{					//ÊäÈëÖ¸ÏòÊ÷½áµãµÄÖ¸Õë
-	char *p = get_path();					//»ñÈ¡CÎÄ¼şµÄ¹¤×÷Â·¾¶£¬µÈ»áÓÃÀ´²¹È«Ïà¶ÔÂ·¾¶ 
+void full_filename(struct node *Node_Tree)  //è¡¥å…¨è·¯å¾„å‡½æ•°å°è£…	
+{					//è¾“å…¥æŒ‡å‘æ ‘ç»“ç‚¹çš„æŒ‡é’ˆ
+	char *p = get_path();					//è·å–Cæ–‡ä»¶çš„å·¥ä½œè·¯å¾„ï¼Œç­‰ä¼šç”¨æ¥è¡¥å…¨ç›¸å¯¹è·¯å¾„ 
 	if(Node_Tree->path == NULL)
 	{
-		strcat(p,"\\¿ªÊ¼");					//¿ªÊ¼Ä¿Â¼´æ½øÈ¥µÄÏà¶ÔÂ·¾¶ÊÇNULL 
-		sprintf(Node_Tree->path,p);			//ÓÃp¸²¸ÇÊ÷µÄÂ·¾¶
+		strcat(p,"\\å¼€å§‹");					//å¼€å§‹ç›®å½•å­˜è¿›å»çš„ç›¸å¯¹è·¯å¾„æ˜¯NULL 
+		sprintf(Node_Tree->path,p);			//ç”¨pè¦†ç›–æ ‘çš„è·¯å¾„
 	}
 	else
 	{
-		strcat(p,Node_Tree->path);			//°ÑÏà¶ÔÂ·¾¶¸´ÖÆÔÚpµÄºóÃæ£¬ÕâÑùp¾ÍÊÇÍêÕûµÄÁË
-		sprintf(Node_Tree->path,p);			//ÓÃp¸²¸ÇÊ÷µÄÂ·¾¶ 
+		strcat(p,Node_Tree->path);			//æŠŠç›¸å¯¹è·¯å¾„å¤åˆ¶åœ¨pçš„åé¢ï¼Œè¿™æ ·på°±æ˜¯å®Œæ•´çš„äº†
+		sprintf(Node_Tree->path,p);			//ç”¨pè¦†ç›–æ ‘çš„è·¯å¾„ 
 	} 
 	
 } 
 
-char *cut_filename(struct node *Node_Tree)	//·Ö½â¾ø¶ÔÂ·¾¶º¯Êı·â×° 
-{											//path¡ª¡ª"D:\C³ÌĞò\ÎÄ¼şµÄµİ¹é²éÕÒ\¿ªÊ¼\2" 
-	char *delim = "\\¿ªÊ¼\\";				//ÒÔ¡®\¡¯Îª·Ö¸ôµÄ·ûºÅ 
+char *cut_filename(struct node *Node_Tree)	//åˆ†è§£ç»å¯¹è·¯å¾„å‡½æ•°å°è£… 
+{											//pathâ€”â€”"D:\Cç¨‹åº\æ–‡ä»¶çš„é€’å½’æŸ¥æ‰¾\å¼€å§‹\2" 
+	char *delim = "\\å¼€å§‹\\";				//ä»¥â€˜\â€™ä¸ºåˆ†éš”çš„ç¬¦å· 
 	char *p = NULL ;
 	char str[260];
-	sprintf(str,Node_Tree->path);			//·Ö¸ôºóµÄ×Ö·û  \¿ªÊ¼\2
+	sprintf(str,Node_Tree->path);			//åˆ†éš”åçš„å­—ç¬¦  \å¼€å§‹\2
 	p = strstr(str,delim);
 	return p;
 }
 
-void writefile_preorder(const char *filename,struct node *T)		//Ç°ĞòĞ´ÈëÎÄ¼ş 
+void writefile_preorder(const char *filename,struct node *T)		//å‰åºå†™å…¥æ–‡ä»¶ 
 {
 	struct node *Stack[260];
 	struct node *p = NULL;
@@ -638,39 +653,39 @@ void writefile_preorder(const char *filename,struct node *T)		//Ç°ĞòĞ´ÈëÎÄ¼ş
 	Stack[++top] = T;
 	while(top != -1)
 	{
-		p = Stack[top--];			//¼ìÔÄ×îÉÏÃæµÄ½áµã 
+		p = Stack[top--];			//æ£€é˜…æœ€ä¸Šé¢çš„ç»“ç‚¹ 
 		address = cut_filename(p);
 		fprintf(fp,"%-2d%-50s%-120s%-20s%-20s%-20s%-10d\n",p->label,p->name,address,p->tag_1,p->tag_2,p->tag_3,p->time);
 		if(p->P_right != NULL)
-		{							//ÓÒ×ÓÊ÷µÄÏÈ½øÈ¥ 
+		{							//å³å­æ ‘çš„å…ˆè¿›å» 
 			Stack[++top] = p->P_right;
 		}
 		if(p->P_left != NULL)
-		{							//×ó×ÓÊ÷µÄ·ÅÉÏÃæ 
+		{							//å·¦å­æ ‘çš„æ”¾ä¸Šé¢ 
 			Stack[++top] = p->P_left;
 		}
 	}
 	fclose(fp);
 }
 
-//ÖĞĞò±éÀú·Çµİ¹éËã·¨
+//ä¸­åºéå†éé€’å½’ç®—æ³•
 void writefile_inorder(const char *filename,struct node *T){
-    struct node *a[20];//¶¨ÒåÒ»¸öË³ĞòÕ»
-    struct node *p;//ÁÙÊ±Ö¸Õë
+    struct node *a[20];//å®šä¹‰ä¸€ä¸ªé¡ºåºæ ˆ
+    struct node *p;//ä¸´æ—¶æŒ‡é’ˆ
     char *address = NULL;
     FILE *fp = fopen(filename,"w");
-    push(a, T);//¸ù½áµã½øÕ»
-    while (top!=-1) {//top!=-1ËµÃ÷Õ»ÄÚ²»Îª¿Õ£¬³ÌĞò¼ÌĞøÔËĞĞ
-        while ( (p=getTop(a)) &&p){//È¡Õ»¶¥ÔªËØ£¬ÇÒ²»ÄÜÎªNULL
-            push(a, p->P_left);//½«¸Ã½áµãµÄ×óº¢×Ó½øÕ»£¬Èç¹ûÃ»ÓĞ×óº¢×Ó£¬NULL½øÕ»
+    push(a, T);//æ ¹ç»“ç‚¹è¿›æ ˆ
+    while (top!=-1) {//top!=-1è¯´æ˜æ ˆå†…ä¸ä¸ºç©ºï¼Œç¨‹åºç»§ç»­è¿è¡Œ
+        while ( (p=getTop(a)) &&p){//å–æ ˆé¡¶å…ƒç´ ï¼Œä¸”ä¸èƒ½ä¸ºNULL
+            push(a, p->P_left);//å°†è¯¥ç»“ç‚¹çš„å·¦å­©å­è¿›æ ˆï¼Œå¦‚æœæ²¡æœ‰å·¦å­©å­ï¼ŒNULLè¿›æ ˆ
         }
-        pop();//Ìø³öÑ­»·£¬Õ»¶¥ÔªËØ¿Ï¶¨ÎªNULL£¬½«NULLµ¯Õ»
+        pop();//è·³å‡ºå¾ªç¯ï¼Œæ ˆé¡¶å…ƒç´ è‚¯å®šä¸ºNULLï¼Œå°†NULLå¼¹æ ˆ
         if (top!=-1) {
-            p=getTop(a);//È¡Õ»¶¥ÔªËØ
-            pop();//Õ»¶¥ÔªËØµ¯Õ»
+            p=getTop(a);//å–æ ˆé¡¶å…ƒç´ 
+            pop();//æ ˆé¡¶å…ƒç´ å¼¹æ ˆ
             address = cut_filename(p);
             fprintf(fp,"%-2d%-50s%-120s%-20s%-20s%-20s%-10d\n",p->label,p->name,address,p->tag_1,p->tag_2,p->tag_3,p->time);
-            push(a, p->P_right);//½«pÖ¸ÏòµÄ½áµãµÄÓÒº¢×Ó½øÕ»
+            push(a, p->P_right);//å°†pæŒ‡å‘çš„ç»“ç‚¹çš„å³å­©å­è¿›æ ˆ
         }
     }
     fclose(fp);
@@ -680,7 +695,7 @@ void writefile_inorder(const char *filename,struct node *T){
 
 int main()
 {	
-	//³õÊ¼»¯²Ù×÷ ¡ª¡ª½¨Ê÷ 
+	//åˆå§‹åŒ–æ“ä½œ â€”â€”å»ºæ ‘ 
 	struct node *father_Tree = createfather();	
 	createtree_label(father_Tree,"1");
 	createtree_label(father_Tree->P_left,"1.1");
@@ -689,21 +704,21 @@ int main()
 	create_left_txt(father_Tree->P_left->P_right,"2.1");
 	createtree_label(father_Tree,"3");	
 //	char *p = NULL;
-/***********************²âÊÔ*******************************/	
+/***********************æµ‹è¯•*******************************/	
 //	perorder(father_Tree);
-//	printf("¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª\n");
+//	printf("â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”\n");
 //	cd(father_Tree);
 //	md(father_Tree);	
-//	printf("¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª\n");
+//	printf("â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”\n");
 	perorder(father_Tree);
-/****************Êı¾İ±£´æ**********************************/
+/****************æ•°æ®ä¿å­˜**********************************/
 	char *address = divide_filename(father_Tree->path);
 	chdir(address);
 	writefile_preorder("preorder_tree.txt",father_Tree);
 	writefile_inorder("Inorder_tree.txt",father_Tree);	
 /**********************************************************/
-	//½áÊø²Ù×÷ 
-	printf("¹Ø±ÕÏµÍ³ÖĞ.........");	
+	//ç»“æŸæ“ä½œ 
+	printf("å…³é—­ç³»ç»Ÿä¸­.........");	
 	free_all(father_Tree);	
 	return 0;
 }
