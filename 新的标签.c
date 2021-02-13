@@ -1,8 +1,7 @@
 void search_file_tag ( struct node*tree, char *search_name ) //根节点
 
 {
-
-
+	int judge=1;
 	if ( tree == NULL )
 	{
 		return;
@@ -22,6 +21,7 @@ void search_file_tag ( struct node*tree, char *search_name ) //根节点
 			pmove = stack[stacktop--];
 			if ( strcmp ( search_name, pmove->name ) == 0 )
 			{
+				judge=0;
 				if ( strcmp(pmove->tag_1,"---")!=0 )
 					printf ( "标签1：%s\n", pmove->tag_1 );
 				if ( strcmp(pmove->tag_2,"---")!=0 )
@@ -34,17 +34,15 @@ void search_file_tag ( struct node*tree, char *search_name ) //根节点
 			{
 				pmove = pmove->P_right;
 			}
-
-
-
-
-
 		}
-
 	}
+	if (judge==1)
+		printf("文件名错误\n");
+	return ;
 }
 void search_add_file_tag ( struct node*tree, char*search_name, char* tag_name ) //根节点
 {
+	int judge=1;
 	if(strlen(tag_name)>20){
 	       printf("the tag_name is too long\n");
 	       return;}
@@ -65,6 +63,7 @@ void search_add_file_tag ( struct node*tree, char*search_name, char* tag_name ) 
 			pmove = stack[stacktop--];
 			if ( strcmp ( search_name, pmove->name ) == 0 )
 			{
+				judge=0;
 				if ( strcmp(pmove->tag_1,"---")==0)
 				{
 					memset(pmove->tag_1,0,sizeof(pmove->tag_1));
@@ -107,14 +106,16 @@ void search_add_file_tag ( struct node*tree, char*search_name, char* tag_name ) 
 		}
 
 	}
-
-
-
+	if(judge==1)
+	    printf("文件名错误\n")；
+		
+    return ;
 }
 void search_delect_file_tag ( struct node*tree, char*search_name, char*tag_name ) //根节点
 {
 	if ( tree == NULL )
 		return;
+	int judge=1;
 	struct node* stack[10];
 	int stacktop = -1;
 	struct node*pmove = tree;
@@ -130,6 +131,7 @@ void search_delect_file_tag ( struct node*tree, char*search_name, char*tag_name 
 			pmove = stack[stacktop--];
 			if ( strcmp ( search_name, pmove->name ) == 0 )
 			{
+				judge=0;
 				if ( strcmp(pmove->tag_1,"---")==0 && strcmp(pmove->tag_1,"---")==0 && strcmp(pmove->tag_1,"---")==0 )
 				{
 					printf ( "no tags\n" );
@@ -174,11 +176,13 @@ void search_delect_file_tag ( struct node*tree, char*search_name, char*tag_name 
 		}
 
 	}
+	if(judge==1)
+		printf("文件名错误\n");
+	return;
 }
 void tag_s ( struct node*tree, char*tag_name ) //当前目录根节点
 {
-
-
+	int judge=1;
 	if ( tree == NULL )
 		return;
 	struct node* stack[10];
@@ -198,6 +202,7 @@ void tag_s ( struct node*tree, char*tag_name ) //当前目录根节点
 			{
 				if ( strcmp ( tag_name, pmove->tag_1 ) == 0 || strcmp ( tag_name, pmove->tag_2 ) == 0 || strcmp ( tag_name, pmove->tag_3 ) == 0 )
 				{
+					judge=0;
 					printf ( "'%s'\n", pmove->name );
 				}
 				pmove = pmove->P_right;
@@ -205,12 +210,14 @@ void tag_s ( struct node*tree, char*tag_name ) //当前目录根节点
 			else
 				pmove = pmove->P_right;
 		}
-
-
 	}
+	if(judge==1)
+		printf("不存在所搜查的标签\n");
+	return ;
 }
 void tag_sa ( struct node*tree, char*tag_name ) //当前目录根节点
 {
+	int judge=1;
 	if ( tree == NULL )
 		return;
 	struct node* stack[10];
@@ -230,6 +237,7 @@ void tag_sa ( struct node*tree, char*tag_name ) //当前目录根节点
 			{
 				if ( strcmp ( tag_name, pmove->tag_1 ) == 0 || strcmp ( tag_name, pmove->tag_2 ) == 0 || strcmp ( tag_name, pmove->tag_3 ) == 0 )
 				{
+					judge=0;
 					printf ( "文件名：%s\t", pmove->name );
 					printf ( "路径：%s\n", pmove->path );
 				}
@@ -241,4 +249,8 @@ void tag_sa ( struct node*tree, char*tag_name ) //当前目录根节点
 		}
 
 	}
+	if(judge==1)
+	     printf("不存在所搜查的标签\n");
+	return; 
 }
+
